@@ -3,7 +3,7 @@
     "description": "SilverStripe PDF Generation via DOMPDF Library",
     "type": "silverstripe-module",
     "require": {
-        "dompdf/dompdf": "^0.6.0"
+        "dompdf/dompdf": "7.0.0"
     },
     "extra": {
         "installer-name": "silverstripe-dompdf"
