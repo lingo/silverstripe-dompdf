@@ -1,5 +1,5 @@
 {
-    "name": "roopamjain01/silverstripe-dompdf",
+    "name": "gdmedia/silverstripe-dompdf",
     "description": "SilverStripe PDF Generation via DOMPDF Library",
     "type": "silverstripe-module",
     "require": {
