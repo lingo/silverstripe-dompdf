@@ -20,6 +20,15 @@ class SS_DOMPDF
         $this->dompdf = new Dompdf();
         $this->dompdf->set_base_path(BASE_PATH);
         $this->dompdf->set_host(Director::absoluteBaseURL());
+
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed'=> true
+            ]
+        ]);
+        $this->dompdf->setHttpContext($context);
     }
 
     public function setOption($key, $value)
