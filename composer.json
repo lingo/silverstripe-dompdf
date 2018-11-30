@@ -1,5 +1,5 @@
 {
-    "name": "gdmedia/silverstripe-dompdf",
+    "name": "lingo/silverstripe-dompdf",
     "description": "SilverStripe PDF Generation via DOMPDF Library",
     "type": "silverstripe-module",
     "require": {
