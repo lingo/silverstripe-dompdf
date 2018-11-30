@@ -18,6 +18,8 @@ class SS_DOMPDF
         define('DOMPDF_ENABLE_AUTOLOAD', false);
 
         $options      = self::get_default_pdf_options();
+        self::ensure_temp_dirs_exist($options);
+
         $this->dompdf = new Dompdf($options);
         $this->dompdf->set_base_path(BASE_PATH);
         $this->dompdf->set_host(Director::absoluteBaseURL());
@@ -106,50 +108,67 @@ class SS_DOMPDF
         die();
     }
 
+    /**
+     * Ensure that all the configured temporary directorys in $options
+     * do in fact exist.
+     *
+     * @param  \DomPdf\Options $options
+     */
+    public static function ensure_temp_dirs_exist($options)
+    {
+        $keys = array('tempDir', 'fontDir', 'fontCache');
 
-	/**
-	* Set default options
-	* These are converted from old dompdf_config.inc.php, excepting the following
-	* (obsolete?) keys:
-	*
-	*    define("DOMPDF_UNICODE_ENABLED", true);
-	*    define("DOMPDF_ENABLE_CSS_FLOAT", true);
-	*    define("DOMPDF_AUTOLOAD_PREPEND", false);
-	*
-	* @return Dompdf\Options
-	*/
-	public static function get_default_pdf_options()
-	{
-		$dompdfDir = str_replace(DIRECTORY_SEPARATOR, '/', BASE_PATH . "/vendor/dompdf/dompdf");
+        foreach($keys as $key) {
+            if (!file_exists($options->get($key))) {
+                @mkdir($options->get($key));
+            }
+        }
+    }
 
-		$options   = new \Dompdf\Options();
-		$options->setAdminUsername('');
-		$options->setAdminPassword('');
-		$options->setRootDir($dompdfDir);
-		$options->setChroot(realpath($dompdfDir));
-		$options->setFontDir($dompdfDir    . '/lib/fonts');
-		$options->setTempDir(TEMP_FOLDER   . '/dompdf/tmp');
-		$options->setFontCache(TEMP_FOLDER . '/dompdf/fontcache');
-		$options->setIsFontSubsettingEnabled(true);
-		$options->setPdfBackend('CPDF');
-		$options->setDefaultMediaType('screen');
-		$options->setDefaultPaperSize('A4');
-		$options->setDefaultFont('serif');
-		$options->setDpi(96);
-		$options->setIsPhpEnabled(false);
-		$options->setIsJavascriptEnabled(true);
-		$options->setIsRemoteEnabled(true);
-		$options->setLogOutputFile(TEMP_FOLDER . '/dompdf/log.htm');
-		$options->setFontHeightRatio(1.1);
-		$options->setIsHtml5ParserEnabled(false);
-		$options->setDebugPng(false);
-		$options->setDebugKeepTemp(false);
-		$options->setDebugCss(false);
-		$options->setDebugLayout(false);
-		$options->setDebugLayoutLines(true);
-		$options->setDebugLayoutBlocks(true);
-		$options->setDebugLayoutInline(true);
-		$options->setDebugLayoutPaddingBox(true);
-		return $options;
-	}
+    /**
+    * Set default options
+    * These are converted from old dompdf_config.inc.php, excepting the following
+    * (obsolete?) keys:
+    *
+    *    define("DOMPDF_UNICODE_ENABLED", true);
+    *    define("DOMPDF_ENABLE_CSS_FLOAT", true);
+    *    define("DOMPDF_AUTOLOAD_PREPEND", false);
+    *
+    * @return Dompdf\Options
+    */
+    public static function get_default_pdf_options()
+    {
+        $dompdfDir = str_replace(DIRECTORY_SEPARATOR, '/', BASE_PATH . "/vendor/dompdf/dompdf");
+
+        $options   = new \Dompdf\Options();
+        $options
+            ->setAdminUsername('')
+            ->setAdminPassword('')
+            ->setRootDir($dompdfDir)
+            ->setChroot(realpath($dompdfDir))
+            ->setFontDir($dompdfDir    . '/lib/fonts')
+            ->setTempDir(TEMP_FOLDER   . '/dompdf/tmp')
+            ->setFontCache(TEMP_FOLDER . '/dompdf/fontcache')
+            ->setIsFontSubsettingEnabled(true)
+            ->setPdfBackend('CPDF')
+            ->setDefaultMediaType('screen')
+            ->setDefaultPaperSize('A4')
+            ->setDefaultFont('serif')
+            ->setDpi(96)
+            ->setIsPhpEnabled(false)
+            ->setIsJavascriptEnabled(true)
+            ->setIsRemoteEnabled(true)
+            ->setLogOutputFile(TEMP_FOLDER . '/dompdf/log.htm')
+            ->setFontHeightRatio(1.1)
+            ->setIsHtml5ParserEnabled(false)
+            ->setDebugPng(false)
+            ->setDebugKeepTemp(false)
+            ->setDebugCss(false)
+            ->setDebugLayout(false)
+            ->setDebugLayoutLines(true)
+            ->setDebugLayoutBlocks(true)
+            ->setDebugLayoutInline(true)
+            ->setDebugLayoutPaddingBox(true);
+        return $options;
+    }
 }
