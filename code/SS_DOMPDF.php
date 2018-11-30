@@ -116,11 +116,11 @@ class SS_DOMPDF
      */
     public static function ensure_temp_dirs_exist($options)
     {
-        $keys = array('tempDir', 'fontDir', 'fontCache');
+        $keys = array('tempDir', 'fontCache');
 
         foreach($keys as $key) {
             if (!file_exists($options->get($key))) {
-                @mkdir($options->get($key));
+                @mkdir($options->get($key), 0777, true);
             }
         }
     }
@@ -138,8 +138,7 @@ class SS_DOMPDF
     */
     public static function get_default_pdf_options()
     {
-        $dompdfDir = str_replace(DIRECTORY_SEPARATOR, '/', BASE_PATH . "/vendor/dompdf/dompdf");
-
+        $dompdfDir = BASE_PATH . "/vendor/dompdf/dompdf";
         $options   = new \Dompdf\Options();
         $options
             ->setAdminUsername('')
