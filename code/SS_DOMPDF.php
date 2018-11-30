@@ -149,7 +149,6 @@ class SS_DOMPDF
             ->setTempDir(TEMP_FOLDER   . '/dompdf/tmp')
             ->setFontCache(TEMP_FOLDER . '/dompdf/fontcache')
             ->setIsFontSubsettingEnabled(true)
-            ->setPdfBackend('CPDF')
             ->setDefaultMediaType('screen')
             ->setDefaultPaperSize('A4')
             ->setDefaultFont('serif')
@@ -159,15 +158,7 @@ class SS_DOMPDF
             ->setIsRemoteEnabled(true)
             ->setLogOutputFile(TEMP_FOLDER . '/dompdf/log.htm')
             ->setFontHeightRatio(1.1)
-            ->setIsHtml5ParserEnabled(false)
-            ->setDebugPng(false)
-            ->setDebugKeepTemp(false)
-            ->setDebugCss(false)
-            ->setDebugLayout(false)
-            ->setDebugLayoutLines(true)
-            ->setDebugLayoutBlocks(true)
-            ->setDebugLayoutInline(true)
-            ->setDebugLayoutPaddingBox(true);
+            ->setIsHtml5ParserEnabled(false);
         return $options;
     }
 }
