@@ -120,7 +120,7 @@ class SS_DOMPDF
 	*/
 	public static function get_default_pdf_options()
 	{
-		$dompdfDir = str_replace(DIRECTORY_SEPARATOR, '/', BASE_PATH . "vendor/dompdf");
+		$dompdfDir = str_replace(DIRECTORY_SEPARoATOR, '/', BASE_PATH . "/vendor/dompdf/dompdf");
 
 		$options   = new \Dompdf\Options();
 		$options->setAdminUsername('');
